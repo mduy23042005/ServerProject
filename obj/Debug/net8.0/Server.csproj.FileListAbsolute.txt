@@ -130,3 +130,4 @@ C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\refint\Server.dll
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.pdb
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.genruntimeconfig.cache
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\ref\Server.dll
+C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.sourcelink.json

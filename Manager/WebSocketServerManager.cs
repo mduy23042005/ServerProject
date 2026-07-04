@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Server.Models;
 
 public sealed class ClientConnection
 {
@@ -27,6 +28,8 @@ public class WebSocketServerManager
     private volatile bool isShuttingDown = false;
     private TimeZoneInfo vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
     private DateTime time;
+
+    public static ServerDbprojectContext db = new ServerDbprojectContext();
 
     public static void Main(string[] args)
     {

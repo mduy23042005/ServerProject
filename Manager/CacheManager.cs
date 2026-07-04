@@ -7,7 +7,7 @@ public class AccountData
 {
     public Account account;
 
-    public AccountData accountCachedData;
+    public Account accountCachedData;
 }
 
 public class CacheManager

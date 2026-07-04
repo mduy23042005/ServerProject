@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading;
@@ -215,7 +216,7 @@ public sealed class RaceManager
         if (client == null) return;
 
         int idAccount = GetIDAccount(client);
-        string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.NameChar : null;
+        string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
 
         if (idAccount != 0)
         {
@@ -281,14 +282,17 @@ public sealed class RaceManager
         foreach (var client in needCleanup)
         {
             int idAccount = GetIDAccount(client);
-            string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.NameChar : null;
+            string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
 
             if (idAccount != 0)
             {
                 CacheManager.Instance.RemoveAccountData(idAccount);
 
-                time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
-                Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {nameAccount}.");
+                if (!nameAccount.IsNullOrEmpty())
+                {
+                    time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+                    Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {nameAccount}.");
+                }
             }
 
             if (client.socket.State == WebSocketState.Open || client.socket.State == WebSocketState.CloseReceived)
