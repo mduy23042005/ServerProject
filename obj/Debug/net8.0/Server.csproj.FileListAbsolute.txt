@@ -131,3 +131,12 @@ C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.pdb
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.genruntimeconfig.cache
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\ref\Server.dll
 C:\Users\ASUS\OneDrive\Desktop\Server\obj\Debug\net8.0\Server.sourcelink.json
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.csproj.AssemblyReference.cache
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.AssemblyInfoInputs.cache
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.AssemblyInfo.cs
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.csproj.CoreCompileInputs.cache
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.sourcelink.json
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.dll
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\refint\Server.dll
+C:\Users\81909\Downloads\ChatUI\ServerProject\obj\Debug\net8.0\Server.pdb
