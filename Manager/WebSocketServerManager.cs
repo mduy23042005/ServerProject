@@ -241,6 +241,7 @@ public class WebSocketServerManager
         {
             PacketReaderManager reader = new PacketReaderManager(data);
             EnumCmdCode cmd = (EnumCmdCode)reader.ReadInt();
+            Console.WriteLine("[Server] Received cmd: " + cmd);
 
             switch (cmd)
             {
@@ -256,10 +257,12 @@ public class WebSocketServerManager
                     break;
 
                 case EnumCmdCode.login:
+                    Console.WriteLine("[Server] Login packet received");
                     var loginPacket = new LogInRequestPacket();
                     loginPacket.username = reader.ReadString();
                     loginPacket.password = reader.ReadString();
 
+                    Console.WriteLine("[Server] Login username: " + loginPacket.username);
                     var loginController = new LogInController();
                     await loginController.ClickLogIn(client, loginPacket);
                     break;
