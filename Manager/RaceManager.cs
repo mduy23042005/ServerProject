@@ -216,14 +216,15 @@ public sealed class RaceManager
         if (client == null) return;
 
         int idAccount = GetIDAccount(client);
-        string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
+        string username = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
 
         if (idAccount != 0)
         {
             CacheManager.Instance.RemoveAccountData(idAccount);
+            CacheManager.Instance.RemoveAccountData(username);
 
             time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
-            Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {nameAccount}.");
+            Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {username}.");
         }
 
         try
@@ -282,16 +283,17 @@ public sealed class RaceManager
         foreach (var client in needCleanup)
         {
             int idAccount = GetIDAccount(client);
-            string nameAccount = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
+            string username = CacheManager.Instance.GetAllAccountData().TryGetValue(idAccount, out var value) ? value.account.Username : null;
 
             if (idAccount != 0)
             {
                 CacheManager.Instance.RemoveAccountData(idAccount);
+                CacheManager.Instance.RemoveAccountData(username);
 
-                if (!nameAccount.IsNullOrEmpty())
+                if (!username.IsNullOrEmpty())
                 {
                     time = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
-                    Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {nameAccount}.");
+                    Console.WriteLine($"[Server] {time.ToString("hh:mm:ss tt")} Goodbye {username}.");
                 }
             }
 

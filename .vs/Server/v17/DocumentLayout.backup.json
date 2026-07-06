@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\manager\\racemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|solutionrelative:manager\\racemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\manager\\cachemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +13,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\manager\\websocketservermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|solutionrelative:manager\\websocketservermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|c:\\users\\asus\\onedrive\\desktop\\server\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED92C8B3-8B3A-4C09-92B5-4D4F2FD2E2E4}|Server.csproj|solutionrelative:controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,69 +22,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RaceManager.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\RaceManager.cs",
-              "RelativeDocumentMoniker": "Manager\\RaceManager.cs",
-              "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\RaceManager.cs",
-              "RelativeToolTip": "Manager\\RaceManager.cs",
-              "ViewState": "AgIAAA8BAAAAAAAAAAAQwCIBAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-04T03:18:57.629Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RegisterController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\RegisterController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RegisterController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\RegisterController.cs",
-              "RelativeToolTip": "Controllers\\RegisterController.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAAABoAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-26T04:03:33.135Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "CacheManager.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\CacheManager.cs",
               "RelativeDocumentMoniker": "Manager\\CacheManager.cs",
               "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\CacheManager.cs",
               "RelativeToolTip": "Manager\\CacheManager.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwAkAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAmwEYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-26T03:56:17.114Z",
+              "WhenOpened": "2026-07-06T04:02:29.5Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LogInController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\LogInController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LogInController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\LogInController.cs",
-              "RelativeToolTip": "Controllers\\LogInController.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAAAHIAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
+              "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Controllers\\ChatController.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwDkAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-26T03:54:20.93Z",
+              "WhenOpened": "2026-07-05T10:34:35.011Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "WebSocketServerManager.cs",
               "DocumentMoniker": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\WebSocketServerManager.cs",
               "RelativeDocumentMoniker": "Manager\\WebSocketServerManager.cs",
               "ToolTip": "C:\\Users\\ASUS\\OneDrive\\Desktop\\Server\\Manager\\WebSocketServerManager.cs",
               "RelativeToolTip": "Manager\\WebSocketServerManager.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAwwB8AAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-26T03:49:21.077Z",
               "EditorCaption": ""

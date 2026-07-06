@@ -245,7 +245,14 @@ public class WebSocketServerManager
             switch (cmd)
             {
                 case EnumCmdCode.chat:
-                    
+                    var chatPacket = new ChatRequestPacket();
+                    chatPacket.channel = reader.ReadInt();
+                    chatPacket.idSender = reader.ReadInt();
+                    chatPacket.nameReceiver = reader.ReadString();
+                    chatPacket.message = reader.ReadString();
+
+                    var chatController = new ChatController();
+                    await chatController.SendChatMessage(client, chatPacket);
                     break;
 
                 case EnumCmdCode.login:
@@ -264,12 +271,8 @@ public class WebSocketServerManager
 
                 case EnumCmdCode.register:
                     var registerPacket = new RegisterRequestPacket();
-                    registerPacket.idSchool = reader.ReadInt();
-                    registerPacket.nameChar = reader.ReadString();
                     registerPacket.username = reader.ReadString();
                     registerPacket.password = reader.ReadString();
-                    registerPacket.hair = reader.ReadInt();
-                    registerPacket.blessingPoints = reader.ReadInt();
 
                     var registerController = new RegisterController();
                     await registerController.ClickRegister(client, registerPacket);

@@ -15,38 +15,57 @@ public class CacheManager
     private static readonly Lazy<CacheManager> lazyInstance = new Lazy<CacheManager>(() => new CacheManager());
     public static CacheManager Instance => lazyInstance.Value;
 
-    private Dictionary<int, AccountData> accounts;
+    private Dictionary<int, AccountData> accountsFindByIDAccount;
+    private Dictionary<string, AccountData> accountsFindByUsername;
 
     public void InitCache()
     {
-        accounts = new Dictionary<int, AccountData>();
+        accountsFindByIDAccount = new Dictionary<int, AccountData>();
+        accountsFindByUsername = new Dictionary<string, AccountData>();
     }
 
- 
     //Account
     public void AddAccountData(AccountData data)
     {
-        accounts[data.account.Idaccount] = data;
+        accountsFindByIDAccount[data.account.Idaccount] = data;
+        accountsFindByUsername[data.account.Username] = data;
     }
     public AccountData GetAccountData(int accountId)
     {
-        accounts.TryGetValue(accountId, out var data);
+        accountsFindByIDAccount.TryGetValue(accountId, out var data);
+        return data;
+    }
+    public AccountData GetAccountData(string username)
+    {
+        accountsFindByUsername.TryGetValue(username, out var data);
         return data;
     }
     public Dictionary<int, AccountData> GetAllAccountData()
     {
-        return accounts;
+        return accountsFindByIDAccount;
     }
+
     public void RemoveAccountData(int accountId)
     {
-        accounts.Remove(accountId);
+        accountsFindByIDAccount.Remove(accountId);
     }
+    public void RemoveAccountData(string username)
+    {
+        accountsFindByUsername.Remove(username);
+    }
+
     public bool IsAccountOnline(int accountId)
     {
-        return accounts.ContainsKey(accountId);
+        return accountsFindByIDAccount.ContainsKey(accountId);
     }
+    public bool IsAccountOnline(string username)
+    {
+        return accountsFindByUsername.ContainsKey(username);
+    }
+
     public void ClearAccounts()
     {
-        accounts.Clear();
+        accountsFindByIDAccount.Clear();
+        accountsFindByUsername.Clear();
     }
 }

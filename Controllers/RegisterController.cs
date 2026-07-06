@@ -9,11 +9,8 @@ public class RegisterRequestPacket
 {
     public EnumCmdCode cmd;
     public int idSchool;
-    public string nameChar;
     public string username;
     public string password;
-    public int hair;
-    public int blessingPoints;
 }
 public class RegisterResultPacket
 {
