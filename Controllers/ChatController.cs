@@ -1,74 +1,153 @@
-﻿using Server.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore;
+using Server.Models;
 
 public class ChatRequestPacket
 {
     public int channel;
     public int idSender;
-    public string nameReceiver;
-    public string message;
+    public string nameReceiver = string.Empty;
+    public string message = string.Empty;
 }
+
 public class ChatResultPacket
 {
     public EnumCmdCode cmd;
     public int channel;
-    public string nameSender;
+    public string nameSender = string.Empty;
     public int idReceiver;
-    public string message;
+    public string message = string.Empty;
 }
-
 
 public class ChatController
 {
+    private const int AllServerChannel = 0;
+    private const int PartyChannel = 3;
+    private const int PrivateChannel = 4;
+    private const int SystemChannel = 5;
+    private const int MaxMessageLength = 180;
+
     public async Task SendChatMessage(ClientConnection client, ChatRequestPacket chatPacket)
     {
-        var nameSender = CacheManager.Instance.GetAccountData(chatPacket.idSender).accountCachedData.Username;
-        int idReceiver = 0;
-        if (CacheManager.Instance.GetAccountData(chatPacket.nameReceiver) != null)
+        int senderId = RaceManager.Instance.GetIDAccount(client);
+        if (senderId <= 0)
         {
-            idReceiver = CacheManager.Instance.GetAccountData(chatPacket.nameReceiver).accountCachedData.Idaccount;
+            await SendError(client, 0, "You must log in before sending chat messages.");
+            return;
         }
 
-        ChatResultPacket chatResultPacket = new ChatResultPacket
+        AccountData senderData = CacheManager.Instance.GetAccountData(senderId);
+        if (senderData?.accountCachedData == null)
         {
-            cmd = EnumCmdCode.chat,
-            channel = chatPacket.channel,
-            nameSender = nameSender,
-            idReceiver = idReceiver,
-            message = chatPacket.message
-        };
-
-        PacketWriterManager writer = new PacketWriterManager();
-        writer.WriteInt((int)chatResultPacket.cmd);
-        writer.WriteInt(chatResultPacket.channel);
-        writer.WriteString(chatResultPacket.nameSender);
-        writer.WriteInt(chatResultPacket.idReceiver);
-        writer.WriteString(chatResultPacket.message);
-
-        if (idReceiver > 0)
-        {
-            ClientConnection receiverClient = RaceManager.Instance.GetClientByAccountId(idReceiver);
-
-            if (receiverClient != null)
-            {
-                await RaceManager.Instance.SendPacketToClient(receiverClient, writer.ToArray());
-            }
-
-            SaveMessage(chatPacket, idReceiver).Wait();
+            await SendError(client, senderId, "The sender account is not available.");
+            return;
         }
-        else
-            await RaceManager.Instance.SendPacketToAllClients(writer.ToArray());
+
+        string message = chatPacket.message?.Trim() ?? string.Empty;
+        if (message.Length == 0)
+        {
+            await SendError(client, senderId, "The message cannot be empty.");
+            return;
+        }
+
+        if (message.Length > MaxMessageLength)
+        {
+            await SendError(client, senderId, $"The message cannot exceed {MaxMessageLength} characters.");
+            return;
+        }
+
+        string senderName = senderData.accountCachedData.Username;
+
+        switch (chatPacket.channel)
+        {
+            case AllServerChannel:
+                await RaceManager.Instance.SendPacketToAllClients(
+                    BuildChatPacket(AllServerChannel, senderName, 0, message));
+                break;
+
+            case PrivateChannel:
+                await SendPrivateMessage(client, senderId, senderName, chatPacket.nameReceiver, message);
+                break;
+
+            case PartyChannel:
+                await SendError(client, senderId, "Party chat is not available yet.");
+                break;
+
+            default:
+                await SendError(client, senderId, "Unsupported chat channel.");
+                break;
+        }
     }
-    private async Task SaveMessage(ChatRequestPacket chatPacket, int idReceiver)
+
+    private async Task SendPrivateMessage(
+        ClientConnection senderClient,
+        int senderId,
+        string senderName,
+        string rawReceiverName,
+        string message)
     {
-        Message message = new Message
+        string receiverName = (rawReceiverName ?? string.Empty).Trim().TrimStart('@');
+        if (receiverName.Length == 0)
         {
-            IdaccountFrom = chatPacket.idSender,
-            IdaccountTo = idReceiver,
-            Contents = chatPacket.message
+            await SendError(senderClient, senderId, "Choose a private-message recipient.");
+            return;
+        }
+
+        AccountData? cachedReceiver = CacheManager.Instance.GetAccountData(receiverName);
+        Account? receiverAccount = cachedReceiver?.accountCachedData;
+
+        if (receiverAccount == null)
+        {
+            await using ServerDbprojectContext db = new ServerDbprojectContext();
+            receiverAccount = await db.Accounts.AsNoTracking()
+                .FirstOrDefaultAsync(account => account.Username == receiverName);
+        }
+
+        if (receiverAccount == null)
+        {
+            await SendError(senderClient, senderId, $"User '{receiverName}' does not exist.");
+            return;
+        }
+
+        int receiverId = receiverAccount.Idaccount;
+        byte[] data = BuildChatPacket(PrivateChannel, senderName, receiverId, message);
+
+        await RaceManager.Instance.SendPacketToClient(senderClient, data);
+
+        ClientConnection receiverClient = RaceManager.Instance.GetClientByAccountId(receiverId);
+        if (receiverClient != null && receiverClient != senderClient)
+            await RaceManager.Instance.SendPacketToClient(receiverClient, data);
+
+        await SavePrivateMessage(senderId, receiverId, message);
+    }
+
+    private async Task SendError(ClientConnection client, int senderId, string message)
+    {
+        byte[] data = BuildChatPacket(SystemChannel, "Server", senderId, message);
+        await RaceManager.Instance.SendPacketToClient(client, data);
+    }
+
+    private static byte[] BuildChatPacket(int channel, string senderName, int receiverId, string message)
+    {
+        PacketWriterManager writer = new PacketWriterManager();
+        writer.WriteInt((int)EnumCmdCode.chat);
+        writer.WriteInt(channel);
+        writer.WriteString(senderName);
+        writer.WriteInt(receiverId);
+        writer.WriteString(message);
+        return writer.ToArray();
+    }
+
+    private async Task SavePrivateMessage(int senderId, int receiverId, string message)
+    {
+        Message savedMessage = new Message
+        {
+            IdaccountFrom = senderId,
+            IdaccountTo = receiverId,
+            Contents = message
         };
 
-        WebSocketServerManager.db.Messages.Add(message);
-        await WebSocketServerManager.db.SaveChangesAsync();
+        await using ServerDbprojectContext db = new ServerDbprojectContext();
+        db.Messages.Add(savedMessage);
+        await db.SaveChangesAsync();
     }
 }
